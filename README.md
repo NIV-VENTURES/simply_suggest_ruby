@@ -6,15 +6,15 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 
 Add this line to your application's Gemfile:
 
-  gem 'simply_suggest'
+	gem 'simply_suggest'
 
 And then execute:
 
-  $ bundle
+	$ bundle
 
 Or install it yourself as:
 
-  $ gem install simply_suggest
+	$ gem install simply_suggest
 
 ## Changes
 
