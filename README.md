@@ -24,17 +24,19 @@ See the [CHANGELOG.md](CHANGELOG.md) file for details.
 
 After installing the GEM you can use within your controllers or helpers the following methods
 
-  # this will return an array of object ids which are related to this object
-  recommendations_for object
+	# this will return an array of object ids which are related to this object
+	recommendations_for object
 
-  # this will return an hash of data which are recommended for the user
-  user_recommendations user_id
+	# this will return an hash of data which are recommended for the user
+	user_recommendations user_id
 
-  # to use the javascript tracking methods you need to add this line to your <head> or footer
-  simply_suggest_script
+### JavaScript-Implementation
 
-  # then within the footer you can call this function to get the javascript calls
-  get_tracking_code user_id: unique_user_id, object_id: unique_object_id, object_type: object_type, event: ""
+	# to use the javascript tracking methods you need to add this line to your <head> or footer
+	<%= simply_suggest_script %>
+
+	# then within the footer you can call this function to get the javascript calls
+	<%= get_tracking_code user_id: unique_user_id, object_id: unique_object_id, object_type: object_type, event: "" %>
 
 ## Contributing
 
