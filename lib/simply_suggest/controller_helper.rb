@@ -24,7 +24,17 @@ module SimplySuggest
     # options : hash [optional]
     #
     def user_recommendations user_id, options = {}
-      request_object.user_recommendations user_id, options
+      object_type = options.delete(:object_type) || options.delete(:class)
+      limit       = options.delete(:limit) || 10
+      page        = options.delete(:page)  || 1
+
+      if object_type.present?
+        data = request_object.user.send(object_type).recommendations.page(page).limit(limit).get(user_id)
+      else
+        data = request_object.user.recommendations.page(page).limit(limit).get(user_id)
+      end
+      return [] if data["user_predictions"].blank?
+      data["user_predictions"].map { |d| { type: d["object_type"], id: d["recommendation_id"] } }
     end
 
   protected

@@ -33,9 +33,15 @@ describe "Api::Calls" do
       expect(ActionController::Base.included_modules).to include(SimplySuggest::ControllerHelper)
     end
 
-    it 'should test controller helpers' do
+    it 'should test controller helpers with object recommendations' do
       expect(TestController.new.recommendations_for(class: "album", object_id: 1026).length).to be > 0
       expect { TestController.new.recommendations_for(class: "album", object_id: 54684) }.to raise_exception(SimplySuggest::Error)
+    end
+
+    it 'should test controller helpers with user recommendations' do
+      expect(TestController.new.user_recommendations("ffc0635b-e32b-4a3d-a5b6-2703e08bdc14").length).to be > 0
+      expect(TestController.new.user_recommendations("ffc0635b-e32b-4a3d-a5b6-2703e08bdc14", object_type: "series").length).to be > 0
+      expect(TestController.new.user_recommendations("ffc0635b-e32b-4a3d-a5b6-2703e08bdc14", object_type: "album").length).to be == 0
     end
   end
 end
