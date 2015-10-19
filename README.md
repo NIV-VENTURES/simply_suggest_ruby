@@ -6,15 +6,15 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 
 Add this line to your application's Gemfile:
 
-	gem 'simply_suggest'
+  gem 'simply_suggest'
 
 And then execute:
 
-	$ bundle
+  $ bundle
 
 Or install it yourself as:
 
-	$ gem install simply_suggest
+  $ gem install simply_suggest
 
 ## Changes
 
@@ -24,10 +24,10 @@ See the [CHANGELOG.md](CHANGELOG.md) file for details.
 
 After installing the GEM you can use within your controllers or helpers the following methods
 
-	# this will return an array of object ids which are related to this object
-	recommendations_for object
+  # this will return an array of object ids which are related to this object
+  recommendations_for object
 
-	# this will return an hash of data which are recommended for the user
+  # this will return an hash of data which are recommended for the user
   user_recommendations user_id
 
   # to use the javascript tracking methods you need to add this line to your <head> or footer
