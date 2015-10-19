@@ -7,7 +7,7 @@ module SimplySuggest
       end
     end
 
-    def get_recommendation_include
+    def simply_suggest_script
       content_tag :script do
         "(function() {
           var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
