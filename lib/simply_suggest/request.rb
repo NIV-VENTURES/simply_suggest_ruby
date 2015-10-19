@@ -1,63 +1,51 @@
 module SimplySuggest
   class Request
-    attr_reader :options
-
-    def initialize data = {}
-      @options = data
+    class << self
+      def method_missing(sym, *args, &block)
+        new.send(sym, *args, &block)
+      end
     end
 
-    def recommendations_for item, options = {}
-      limit = options.delete(:limit) || 4
-
-      get("predict", item.class.to_s.downcase, item.id, limit)
+    def initialize
+      @path_parts = []
+      @params     = {}
     end
 
-    def user_recommendations user_id, options = {}
-      limit = options.delete(:limit) || 4
-      klass = options.delete(:class)
+    def method_missing(method, *args)
+      @path_parts << method.to_s.downcase
+      @path_parts << args if args.length > 0
+      @path_parts.flatten!
+      self
+    end
 
-      get("user", klass, user_id, limit)
+    def get *args
+      @path_parts += args.to_a
+      values = api_request.get(path, @params)
+      reset
+      values
+    end
+
+    def limit num
+      @params[:limit] = num
+      self
+    end
+
+    def page num
+      @params[:page] = num
+      self
+    end
+
+    def path
+      @path_parts.join('/')
+    end
+
+    def reset
+      @path_parts = []
     end
 
   protected
-    def get method, class_name, id, limit
-      case SimplySuggest.config.api_type
-      when :json
-        begin
-          return get_json(method, class_name, id, limit)
-        rescue => e
-          handle_error(e)
-        end
-      else
-        raise "Unknown Api Type" if Rails.env.development?
-      end
-
-      []
-    end
-
-    def get_json method, class_name, id, limit
-      url = "http://v1.#{SimplySuggest.config.domain}/"
-      url += [method, class_name, id.to_s].reject(&:blank?).join("/")
-      url += ".json?key=#{SimplySuggest.config.api_key}&limit=#{limit}"
-
-      Logger.new("log/simply_suggest.log").info(url) rescue nil if Rails.env.development?
-
-      timeout(SimplySuggest.config.timeout) {
-        json_string = open(url).read
-        return JSON.parse(json_string) rescue []
-      }
-
-      []
-    end
-
-    def handle_error error
-      case error.class.to_s
-      when "OpenURI::HTTPError"
-        # TODO check response status
-        raise "Wrong Api-Key provided" if Rails.env.development?
-      when "Timeout::Error"
-
-      end
+    def api_request
+      @api_request ||= SimplySuggest::ApiRequest.new
     end
   end
 end

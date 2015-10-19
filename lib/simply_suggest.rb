@@ -1,6 +1,7 @@
 require 'action_controller'
 require 'action_view'
-require "open-uri"
+require "faraday"
+require "multi_json"
 
 module SimplySuggest
 end
@@ -8,6 +9,8 @@ end
 require 'simply_suggest/version'
 require 'simply_suggest/configuration'
 require 'simply_suggest/request'
+require 'simply_suggest/error'
+require 'simply_suggest/api_request'
 require 'simply_suggest/controller_helper'
 require 'simply_suggest/view_helper'
 

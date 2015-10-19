@@ -3,17 +3,12 @@ module SimplySuggest
     # SimplySuggest publicKey
     #
     # default: nil
-    attr_accessor :publicKey
+    attr_accessor :public_key
 
     # SimplySuggest secretKey
     #
     # default: nil
-    attr_accessor :secretKey
-
-    # Api Type
-    #
-    # default: json
-    attr_accessor :api_type
+    attr_accessor :secret_key
 
     # Read Timeout
     #
@@ -28,15 +23,14 @@ module SimplySuggest
     # Api Domain
     #
     # default: simply-suggest.com
-    attr_accessor :domain
+    attr_accessor :api_domain
 
     def initialize
       @secret_key  = nil
       @public_key  = nil
-      @api_type    = :json
       @timeout     = 2
       @api_version = "v1"
-      @domain      = "simply-suggest.com"
+      @api_domain  = "http://v1.simply-suggest.com"
     end
   end
 
