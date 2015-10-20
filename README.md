@@ -39,7 +39,7 @@ After installing the GEM you can use within your controllers or helpers the foll
 	user_recommendations current_user.id
 	# => [{ type: "article", id: 1 }, { type: "product", id: 1 }]
 
-All helpers will raise a ``SimplySuggest::Error`` if something went wrong so you easy catch them.
+All helpers will raise a ``SimplySuggest::Error`` if something went wrong so you easily catch them.
 
 ### JavaScript-Implementation
 
@@ -48,7 +48,7 @@ All helpers will raise a ``SimplySuggest::Error`` if something went wrong so you
 
 	# then somewhere on your side you can call this function to get the javascript calls
 	<%= get_tracking_code user_id: unique_user_id, object_id: unique_object_id, object_type: object_type, event: "view" %>
-	# available event types are: buy, like, dislike, favorite, view, basket
+	# available event types are: buy, like, dislike, favorite, view and add-to-basket
 
 ## Changes
 
