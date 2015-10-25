@@ -15,7 +15,7 @@ describe "Api::Calls" do
     SimplySuggest.configure do |c|
       c.secret_key  = "secret-2"
       c.public_key  = "public-2"
-      c.api_domain  = "http://v1.recommendation.dev"
+      c.api_domain  = "http://v1.simply-suggest.dev"
     end
   }
 
