@@ -31,14 +31,16 @@ module SimplySuggest
       object_type = options.delete(:object_type) || options.delete(:class)
       limit       = options.delete(:limit) || 10
       page        = options.delete(:page)  || 1
+      load        = options.delete(:load)  || SimplySuggest.config.autoload
 
       if object_type.present?
         data = request_object.user.send(object_type).recommendations.page(page).limit(limit).get(user_id)
       else
         data = request_object.user.recommendations.page(page).limit(limit).get(user_id)
       end
-      return [] if data["user_predictions"].blank?
-      data["user_predictions"].map { |d| { type: d["object_type"], id: d["recommendation_id"] } }
+      return [] if data["recommendations"].blank?
+      return data["recommendations"].map { |d| { d["object_type"].classify.constantize.where(id: d["recommendation_id"]).first } }.reject(&:nil?) if load
+      data["recommendations"].map { |d| { type: d["object_type"], id: d["recommendation_id"] } }
     end
 
   protected

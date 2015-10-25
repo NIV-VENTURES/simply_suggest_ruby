@@ -25,6 +25,7 @@ For rails put initialization into config/initializers/simply_suggest.rb
 	SimplySuggest.configure do |c|
       c.secret_key = "YOUR SECRET KEY"
       c.public_key = "YOUR PUBLIC KEY"
+      c.autoload   = false # set this to true to receive objects from the controller helpers
     end
 
 ## Usage
@@ -37,6 +38,7 @@ After installing the GEM you can use within your controllers or helpers the foll
 	
 	recommendations_for @object, load: true
 	# => [object, object, object]
+	# you can set autoload within the config to let load default to true
 
 	# this will return an hash of data which are recommended for the user
 	user_recommendations current_user.id
