@@ -39,7 +39,7 @@ module SimplySuggest
         data = request_object.user.recommendations.page(page).limit(limit).get(user_id)
       end
       return [] if data["recommendations"].blank?
-      return data["recommendations"].map { |d| { d["object_type"].classify.constantize.where(id: d["recommendation_id"]).first } }.reject(&:nil?) if load
+      return data["recommendations"].map { |d| d["object_type"].classify.constantize.where(id: d["recommendation_id"]).first }.reject(&:nil?) if load
       data["recommendations"].map { |d| { type: d["object_type"], id: d["recommendation_id"] } }
     end
 
