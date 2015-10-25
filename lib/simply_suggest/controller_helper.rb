@@ -18,7 +18,7 @@ module SimplySuggest
       data = request_object.object_types.send(klass).object.recommendations.page(page).limit(limit).get(object_id)
       return [] if data["recommendations"].blank?
       ids = data["recommendations"].map { |d| d["recommendation_id"] }
-      return item.klass.where(id: ids) if load
+      return item.class.where(id: ids) if load
       ids
     end
 
