@@ -10,7 +10,7 @@ module SimplySuggest
     def recommendations_for item, options = {}
       limit     = options.delete(:limit) || 10
       page      = options.delete(:page)  || 1
-      load      = options.delete(:load)  || false
+      load      = options.delete(:load)  || SimplySuggest.config.autoload
 
       klass     = item.is_a?(Hash) ? item.delete(:class) : item.class.to_s.downcase
       object_id = item.is_a?(Hash) ? item.delete(:object_id) : item.id

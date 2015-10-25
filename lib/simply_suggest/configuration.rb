@@ -30,6 +30,11 @@ module SimplySuggest
     # default: simply-suggest.com
     attr_accessor :domain
 
+    # Autoload objects
+    #
+    # default: false
+    attr_accessor :autoload
+
     def initialize
       @secret_key  = nil
       @public_key  = nil
@@ -37,6 +42,7 @@ module SimplySuggest
       @api_version = "v1"
       @domain      = "simply-suggest.com"
       @api_domain  = "http://v1.simply-suggest.com"
+      @autoload    = false
     end
   end
 
