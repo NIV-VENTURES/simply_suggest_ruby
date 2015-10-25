@@ -34,6 +34,9 @@ After installing the GEM you can use within your controllers or helpers the foll
 	# this will return an array of object ids which are related to this object
 	recommendations_for @object
 	# => [1,2,3,4,5]
+	
+	recommendations_for @object, load: true
+	# => [object, object, object]
 
 	# this will return an hash of data which are recommended for the user
 	user_recommendations current_user.id

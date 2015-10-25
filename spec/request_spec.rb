@@ -12,6 +12,7 @@ end
 
 describe "Api::Calls" do
   before {
+    # TODO
     SimplySuggest.configure do |c|
       c.secret_key  = "secret-2"
       c.public_key  = "public-2"
