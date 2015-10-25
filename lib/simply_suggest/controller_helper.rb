@@ -10,7 +10,8 @@ module SimplySuggest
     def recommendations_for item, options = {}
       limit     = options.delete(:limit) || 10
       page      = options.delete(:page)  || 1
-      load      = options.delete(:load)  || SimplySuggest.config.autoload
+      load      = options.delete(:load)
+      load      = SimplySuggest.config.autoload if load.nil?
 
       klass     = item.is_a?(Hash) ? item.delete(:class) : item.class.to_s.downcase
       object_id = item.is_a?(Hash) ? item.delete(:object_id) : item.id
@@ -31,7 +32,8 @@ module SimplySuggest
       object_type = options.delete(:object_type) || options.delete(:class)
       limit       = options.delete(:limit) || 10
       page        = options.delete(:page)  || 1
-      load        = options.delete(:load)  || SimplySuggest.config.autoload
+      load        = options.delete(:load)
+      load        = SimplySuggest.config.autoload if load.nil?
 
       if object_type.present?
         data = request_object.user.send(object_type).recommendations.page(page).limit(limit).get(user_id)
