@@ -1,5 +1,9 @@
 # SimplySuggest
 
+[![Build Status](https://travis-ci.org/SimplySuggest/simply_suggest_ruby.svg?branch=master)](https://travis-ci.org/SimplySuggest/simply_suggest_ruby)
+[![security](https://hakiri.io/github/SimplySuggest/simply_suggest_ruby/master.svg)](https://hakiri.io/github/SimplySuggest/simply_suggest_ruby/master)
+[![Code Climate](https://codeclimate.com/github/SimplySuggest/simply_suggest_ruby/badges/gpa.svg)](https://codeclimate.com/github/SimplySuggest/simply_suggest_ruby)
+
 SimplySuggest implementation for Ruby.
 
 Direct API-access to all the methods which are available.
@@ -34,14 +38,14 @@ After installing the GEM you can use within your controllers or helpers the foll
 	# this will return an array of object ids which are related to this object
 	recommendations_for @product
 	# => [1,2,3,4,5]
-	
+
 	recommendations_for @product, load: true
 	# => [Product, Product, Product]
 
 	# this will return an hash of data which are recommended for the user
 	user_recommendations current_user.id
 	# => [{ type: "article", id: 1 }, { type: "product", id: 1 }]
-	
+
 	user_recommendations current_user.id, load: true
 	# => [Product, Article, Product]
 

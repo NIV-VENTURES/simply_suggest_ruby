@@ -68,7 +68,7 @@ module SimplySuggest
       facets     = options.delete(:facets)
       conditions = options.delete(:conditions)
 
-      request = request_object.object_type.search.send(klass).page(page).limit(limit).add_param(:query, query)
+      request = request_object.object_type.search.send(klass).page(page).limit(limit).add_params(query: query)
       request.add_param(:conditions, conditions) if conditions.present?
       request.add_param(:facets, facets) if facets.present?
 

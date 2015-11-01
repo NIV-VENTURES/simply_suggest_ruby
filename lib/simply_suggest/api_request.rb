@@ -1,30 +1,20 @@
 module SimplySuggest
   class ApiRequest
     def get url, params = {}, headers = {}
-      begin
-        response = rest_client.get do |request|
-          configure_request(url, request: request, params: params, headers: headers)
-        end
-        parse_response(response.body)
-      rescue => e
-        handle_error(e)
-      end
+      execute_request :get, url, params, headers
     end
 
     def post url, params = {}, headers = {}
-      begin
-        response = rest_client.post do |request|
-          configure_request(url, request: request, params: params, headers: headers)
-        end
-        parse_response(response.body)
-      rescue => e
-        handle_error(e)
-      end
+      execute_request :post, url, params, headers
     end
 
     def patch url, params = {}, headers = {}
+      execute_request :patch, url, params, headers
+    end
+
+    def execute_request method, url, params = {}, headers = {}
       begin
-        response = rest_client.patch do |request|
+        response = rest_client.send(method) do |request|
           configure_request(url, request: request, params: params, headers: headers)
         end
         parse_response(response.body)
@@ -85,8 +75,8 @@ module SimplySuggest
 
           if parsed_response
             error_to_raise.body = parsed_response
-            error_to_raise.title = parsed_response["title"] if parsed_response["title"]
-            error_to_raise.detail = parsed_response["detail"] if parsed_response["detail"]
+            error_to_raise.error_code = parsed_response["error_code"] if parsed_response["error_code"]
+            error_to_raise.message = parsed_response["message"] if parsed_response["message"]
           end
 
           error_to_raise.status_code = error.response[:status]
