@@ -45,6 +45,23 @@ module SimplySuggest
       data["recommendations"].map { |d| { type: d["object_type"], id: d["recommendation_id"] } }
     end
 
+    # returns trending data for the object type
+    #
+    # klass : string
+    # options : hash [optional]
+    #
+    def get_trending_objects klass, options = {}
+      limit = options.delete(:limit) || 10
+      page  = options.delete(:page) || 1
+      load  = options.delete(:load)
+      load  = SimplySuggest.config.autoload if load.nil?
+
+      data = request_object.object_type.trending.send(klass).page(page).limit(limit).get
+      return [] if data["trending"].blank?
+      return data["trending"].map { |d| d["object_type"].classify.constantize.where(id: d["external_id"]).first }.reject(&:nil?) if load
+      data["trending"].map { |d| { type: d["object_type"], id: d["external_id"] } }
+    end
+
   protected
     def request_object
       @request_object ||= SimplySuggest::Request.new

@@ -34,8 +34,12 @@ module SimplySuggest
       content_tag :script, script
     end
 
+    def track_click source_id, destination, user_id, options = {}
+      track_recommendation_click(source_id, destination.id, destination.class.to_s.downcase, user_id, options)
+    end
+
     def track_recommendation_click source_id, destination_id, user_id, klass, options = {}
-      use_script  = options[:script] == nil ? true : options[:script]
+      use_script = options[:script] == nil ? true : options[:script]
 
       script = "
         window.track_recommendation = window.track_recommendation || [];
