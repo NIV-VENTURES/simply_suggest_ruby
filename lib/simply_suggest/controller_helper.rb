@@ -58,7 +58,7 @@ module SimplySuggest
 
       data = request_object.object_type.trending.send(klass).page(page).limit(limit).get
       return [] if data["trending"].blank?
-      return data["trending"].map { |d| d["object_type"].classify.constantize.where(id: d["external_id"]).first }.reject(&:nil?) if load
+      return klass.classify.constantize.where(id: data["trending"].map { |d| d["external_id"] }) if load
       data["trending"].map { |d| { type: d["object_type"], id: d["external_id"] } }
     end
 
