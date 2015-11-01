@@ -25,13 +25,39 @@ module SimplySuggest
       values
     end
 
+    def post *args
+      @path_parts += args.to_a
+      values = api_request.post(path, @params)
+      reset
+      values
+    end
+
+    def patch *args
+      @path_parts += args.to_a
+      values = api_request.patch(path, @params)
+      reset
+      values
+    end
+
     def limit num
-      @params[:limit] = num
+      add_param :limit, num
       self
     end
 
     def page num
-      @params[:page] = num
+      add_param :page, num
+      self
+    end
+
+    def add_param name, value
+      @params[name.to_sym] = value
+      self
+    end
+
+    def add_params params = {}
+      params.each_pair do |name, value|
+        @params[name.to_sym] = value
+      end
       self
     end
 

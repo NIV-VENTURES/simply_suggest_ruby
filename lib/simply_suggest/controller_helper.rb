@@ -62,6 +62,22 @@ module SimplySuggest
       data["trending"].map { |d| { type: d["object_type"], id: d["external_id"] } }
     end
 
+    def search_objects query, klass, options = {}
+      limit      = options.delete(:limit) || 10
+      page       = options.delete(:page) || 1
+      facets     = options.delete(:facets)
+      conditions = options.delete(:conditions)
+
+      request = request_object.object_type.search.send(klass).page(page).limit(limit).add_param(:query, query)
+      request.add_param(:conditions, conditions) if conditions.present?
+      request.add_param(:facets, facets) if facets.present?
+
+      data = request.get
+      return [] if data["objects"].blank?
+
+      data
+    end
+
   protected
     def request_object
       @request_object ||= SimplySuggest::Request.new

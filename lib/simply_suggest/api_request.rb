@@ -11,6 +11,28 @@ module SimplySuggest
       end
     end
 
+    def post url, params = {}, headers = {}
+      begin
+        response = rest_client.post do |request|
+          configure_request(url, request: request, params: params, headers: headers)
+        end
+        parse_response(response.body)
+      rescue => e
+        handle_error(e)
+      end
+    end
+
+    def patch url, params = {}, headers = {}
+      begin
+        response = rest_client.patch do |request|
+          configure_request(url, request: request, params: params, headers: headers)
+        end
+        parse_response(response.body)
+      rescue => e
+        handle_error(e)
+      end
+    end
+
   protected
     def configure_request(url, request: nil, params: nil, headers: nil, body: nil)
       if request
