@@ -61,6 +61,14 @@ module SimplySuggest
 
       data = request.get
       return [] if data["objects"].blank?
+      if options[:load]
+        values = {}
+        values[:results]    = data["objects"].map { |d| d["object_type"].classify.constantize.where(id: d["external_id"]).first }.reject(&:nil?)
+        values[:facets]     = data["facets"]
+        values[:conditions] = data["conditions"]
+
+        return values
+      end
 
       data
     end

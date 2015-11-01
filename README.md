@@ -5,8 +5,9 @@
 [![Code Climate](https://codeclimate.com/github/SimplySuggest/simply_suggest_ruby/badges/gpa.svg)](https://codeclimate.com/github/SimplySuggest/simply_suggest_ruby)
 
 SimplySuggest implementation for Ruby.
+You need an account at www.simply-suggest.com to use this gem.
 
-Direct API-access to all the methods which are available.
+Direct API-access to all the methods which are available and several helpers to get things a bit less complex.
 
 ## Installation
 
@@ -35,19 +36,39 @@ For rails put initialization into config/initializers/simply_suggest.rb
 
 After installing the GEM you can use within your controllers or helpers the following methods
 
-	# this will return an array of object ids which are related to this object
+This will return an array of object ids which are related to this object
 	recommendations_for @product
 	# => [1,2,3,4,5]
+
+This will autoload all objects from your database
 
 	recommendations_for @product, load: true
 	# => [Product, Product, Product]
 
-	# this will return an hash of data which are recommended for the user
+This will return an hash of data which are recommended for the user
+
 	user_recommendations current_user.id
 	# => [{ type: "article", id: 1 }, { type: "product", id: 1 }]
 
+This will autoload the data from your database
+
 	user_recommendations current_user.id, load: true
 	# => [Product, Article, Product]
+	
+This will load the current trending objects
+
+	get_trending_objects "article", load: true
+	# => [Article, Article, Article]
+
+You can use the search api accessing the following method in your controller
+
+	search_objects "lorem ipsum", "article", load: true
+	# => { results: [Article, Article, Article], facets: nil, conditions: nil }
+	
+You can specify facet fields
+
+	search_objects "lorem ipsum", "article", load: true, facets: [:category_id]
+	# => { results: [Article, Article, Article], facets: { category_id: { key: 4, doc_count: 2 } }, conditions: nil }
 
 you can set autoload within the config to let load default to true
 
@@ -59,13 +80,24 @@ All helpers will raise a ``SimplySuggest::Error`` if something went wrong so you
 
 ### JavaScript-Implementation
 
-	# to use the javascript tracking methods you need to add this line to your <head> or footer
+to use the javascript tracking methods you need to add this line to your <head> or footer
+
 	<%= simply_suggest_script %>
 
-	# then somewhere on your side you can call this function to get the javascript calls
+then somewhere on your side you can call this function to get the javascript calls
+
 	<%= get_tracking_code user_id: unique_user_id, object_id: unique_object_id, object_type: object_type, event: "view" %>
-	# available event types are: buy, like, dislike, favorite, view and add-to-basket
-	# you should generate and send a unique user id which is saved to the session or cookie so you send always the same one
+
+available event types are
+
+	:buy
+	:like
+	:dislike
+	:favorite
+	:view
+	:add-to-basket 
+
+You should use the primary key of your user or generate and send a unique user id which is saved to the session or cookie so you send always the same one
 
 ## Changes
 
