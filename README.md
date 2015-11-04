@@ -54,7 +54,7 @@ This will autoload the data from your database
 
 	user_recommendations current_user.id, load: true
 	# => [Product, Article, Product]
-	
+
 This will load the current trending objects
 
 	get_trending_objects "article", load: true
@@ -64,7 +64,7 @@ You can use the search api accessing the following method in your controller
 
 	search_objects "lorem ipsum", "article", load: true
 	# => { results: [Article, Article, Article], facets: nil, conditions: nil }
-	
+
 You can specify facet fields
 
 	search_objects "lorem ipsum", "article", load: true, facets: [:category_id]
@@ -90,12 +90,14 @@ then somewhere on your side you can call this function to get the javascript cal
 
 available event types are
 
-	:buy
-	:like
-	:dislike
-	:favorite
-	:view
-	:add-to-basket 
+```ruby
+:buy
+:like
+:dislike
+:favorite
+:view
+:basket or "add-to-basket"
+```
 
 You should use the primary key of your user or generate and send a unique user id which is saved to the session or cookie so you send always the same one
 

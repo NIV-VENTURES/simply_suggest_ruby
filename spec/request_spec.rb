@@ -61,5 +61,14 @@ describe "Api::Calls" do
     #   expect(TestController.new.user_recommendations("ffc0635b-e32b-4a3d-a5b6-2703e08bdc14", object_type: "series").length).to be > 0
     #   expect(TestController.new.user_recommendations("ffc0635b-e32b-4a3d-a5b6-2703e08bdc14", object_type: "album").length).to be == 0
     # end
+
+    describe "#track_event" do
+      it "compares two methods" do
+        a = get_tracking_code user_id: "1", object_id: "1", object_type: "article", event: "view"
+        expect(a).to be_present
+        b = track_event user_id: "1", object_id: "1", object_type: "article", event: "view"
+        expect(a).to eq(b)
+      end
+    end
   end
 end

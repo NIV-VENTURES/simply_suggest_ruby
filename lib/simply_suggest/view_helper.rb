@@ -33,6 +33,7 @@ module SimplySuggest
       return script unless use_script
       content_tag :script, script
     end
+    alias_method :track_event, :get_tracking_code
 
     def track_click source_id, destination, user_id, options = {}
       track_recommendation_click(source_id, destination.id, destination.class.to_s.downcase, user_id, options)
