@@ -16,7 +16,7 @@ module SimplySuggest
       data = request_object.object_types.send(klass).object.recommendations.page(options[:page]).limit(options[:limit]).get(object_id)
       return [] if data["recommendations"].blank?
       ids = data["recommendations"].map { |d| d["recommendation_id"] }
-      return klass.classify.constantize.class.where(id: ids) if options[:load]
+      return klass.classify.constantize.where(id: ids) if options[:load]
       ids
     end
 
