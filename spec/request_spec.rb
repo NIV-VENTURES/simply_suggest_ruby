@@ -6,8 +6,8 @@ end
 describe "Api::Calls" do
   before {
     SimplySuggest.configure do |c|
-      c.secret_key  = "58f38a8b-ca16-4d44-acc9-0a6f0bf0919f"
-      c.public_key  = "cbb8f914-d89f-49ef-b732-8b0e133f6cb5"
+      c.secret_key  = "secret"
+      c.public_key  = "public"
     end
   }
 
