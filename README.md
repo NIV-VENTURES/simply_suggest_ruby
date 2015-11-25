@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/simply_suggest.svg)](https://badge.fury.io/rb/simply_suggest)
 [![Build Status](https://semaphoreci.com/api/v1/projects/8604eb77-808e-479b-8502-de90d365a29c/606781/shields_badge.svg)](https://semaphoreci.com/niv-ventures/simply_suggest_ruby)
-[![Build Status](https://travis-ci.org/SimplySuggest/simply_suggest_ruby.svg?branch=master)](https://travis-ci.org/SimplySuggest/simply_suggest_ruby)
+[![Build Status](https://travis-ci.org/NIV-VENTURES/simply_suggest_ruby.svg?branch=master)](https://travis-ci.org/NIV-VENTURES/simply_suggest_ruby)
 [![security](https://hakiri.io/github/NIV-VENTURES/simply_suggest_ruby/master.svg)](https://hakiri.io/github/NIV-VENTURES/simply_suggest_ruby/master)
 [![Code Climate](https://codeclimate.com/github/NIV-VENTURES/simply_suggest_ruby/badges/gpa.svg)](https://codeclimate.com/github/NIV-VENTURES/simply_suggest_ruby)
 
