@@ -35,6 +35,11 @@ module SimplySuggest
     # default: false
     attr_accessor :autoload
 
+    # Perform Caching, RAILS ONLY
+    #
+    # default: false
+    attr_accessor :caching
+
     def initialize
       @secret_key  = nil
       @public_key  = nil
@@ -43,6 +48,7 @@ module SimplySuggest
       @domain      = "simply-suggest.com"
       @api_domain  = "http://v1.simply-suggest.com"
       @autoload    = false
+      @caching     = false
     end
   end
 

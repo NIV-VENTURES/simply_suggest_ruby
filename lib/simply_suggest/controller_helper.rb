@@ -51,7 +51,7 @@ module SimplySuggest
     def get_trending_objects klass, options = {}
       options = options.reverse_merge(default_options)
 
-      data = request_object.object_type.trending.send(klass).page(page).limit(limit).get
+      data = request_object.object_type.trending.send(klass).page(options[:page]).limit(options[:limit]).get
       return [] if data["trending"].blank?
       return klass.classify.constantize.where(id: data["trending"].map { |d| d["external_id"] }) if options[:load]
       data["trending"].map { |d| { type: d["object_type"], id: d["external_id"] } }

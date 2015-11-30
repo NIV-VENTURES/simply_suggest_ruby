@@ -6,8 +6,9 @@ end
 describe "Api::Calls" do
   before {
     SimplySuggest.configure do |c|
-      c.secret_key  = "secret"
-      c.public_key  = "public"
+      c.secret_key = "secret"
+      c.public_key = "public"
+      # c.api_domain = "http://v1.simply-suggest.dev"
     end
   }
 
