@@ -27,12 +27,12 @@ module SimplySuggest
     #
     def user_recommendations user_id, options = {}
       options = options.reverse_merge(default_options)
-      klass   = options.delete(:object_type)
+      klass   = options.delete(:object_type) || options.delete(:class)
 
       if klass.present?
         data = request_object.user.send(klass).recommendations.page(options[:page]).limit(options[:limit]).get(user_id)
       else
-        data = request_object.user.recommendations.page(page).limit(limit).get(user_id)
+        data = request_object.user.recommendations.page(options[:page]).limit(options[:limit]).get(user_id)
       end
       return [] if data["recommendations"].blank?
 
