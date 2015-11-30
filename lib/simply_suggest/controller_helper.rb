@@ -27,14 +27,19 @@ module SimplySuggest
     #
     def user_recommendations user_id, options = {}
       options = options.reverse_merge(default_options)
+      klass   = options.delete(:object_type)
 
-      if options[:object_type].present?
-        data = request_object.user.send(options[:object_type]).recommendations.page(options[:page]).limit(options[:limit]).get(user_id)
+      if klass.present?
+        data = request_object.user.send(klass).recommendations.page(options[:page]).limit(options[:limit]).get(user_id)
       else
         data = request_object.user.recommendations.page(page).limit(limit).get(user_id)
       end
       return [] if data["recommendations"].blank?
-      return data["recommendations"].map { |d| d["object_type"].classify.constantize.where(id: d["recommendation_id"]).first }.reject(&:nil?) if options[:load]
+
+      if options[:load]
+        return klass.classify.constantize.where(id: data["recommendations"].map { |d| d["recommendation_id"] }) if klass.present?
+        return data["recommendations"].map { |d| d["object_type"].classify.constantize.where(id: d["recommendation_id"]).first }.reject(&:nil?)
+      end
       data["recommendations"].map { |d| { type: d["object_type"], id: d["recommendation_id"] } }
     end
 
