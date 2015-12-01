@@ -57,6 +57,9 @@ This will autoload the data from your database
 	user_recommendations current_user.id, load: true
 	# => [Product, Article, Product]
 
+	user_recommendations(user_uuid, class: "product", limit: 8)
+	# => Scopeable object
+
 This will load the current trending objects
 
 	get_trending_objects "article", load: true
