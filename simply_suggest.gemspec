@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Simply Suggest"]
   spec.email         = ["info@simply-suggest.com"]
   spec.summary       = %q{Api for http://www.simply-suggest.com here}
-  spec.homepage      = "http://www.simply-suggest.com"
+  spec.homepage      = "https://github.com/NIV-VENTURES/simply_suggest_ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
